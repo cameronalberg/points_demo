@@ -11,6 +11,9 @@ public class TransactionManager {
     }
 
     public void addTransaction(Transaction t) {
+        //TODO - if transaction has negative points, "spend them" on oldest
+        // value and add transaction with originalPoints of -x and
+        // availablePoints of 0
         transactions.add(t);
     }
 
@@ -18,6 +21,16 @@ public class TransactionManager {
         Transaction oldest = this.transactions.first();
         return new Transaction(oldest.getPayer(), oldest.getAvailablePoints(),
                 oldest.getTimestamp());
+    }
+
+    public Map<String, Integer> spendPoints(int spendablePoints) {
+        Map<String, Integer> usedPoints = new HashMap<>();
+        Iterator<Transaction> itr = transactions.iterator();
+        while (spendablePoints > 0 || itr.hasNext()) {
+            Transaction item = itr.next();
+            //TODO - spend possible points
+        }
+        return usedPoints;
     }
 
     public Map<String, Integer> getBalances() {
@@ -38,7 +51,7 @@ public class TransactionManager {
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (Transaction item : transactions) {
-            output.append(item + "\n");
+            output.append(item).append("\n");
         }
         return output.toString();
     }

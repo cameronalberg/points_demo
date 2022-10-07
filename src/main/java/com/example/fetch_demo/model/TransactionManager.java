@@ -10,11 +10,14 @@ public class TransactionManager {
         this.transactions = new TreeSet<>();
     }
 
+    // Transaction is added to set - if transaction has negative points, the
+    // points are deducted from the oldest
     public void addTransaction(Transaction t) {
-        //TODO - if transaction has negative points, "spend them" on oldest
-        // value and add transaction with originalPoints of -x and
-        // availablePoints of 0
         transactions.add(t);
+    }
+
+    public List<Transaction> getTransactions() {
+        return List.copyOf(this.transactions);
     }
 
     public Transaction getOldest() {
@@ -26,11 +29,33 @@ public class TransactionManager {
     public Map<String, Integer> spendPoints(int spendablePoints) {
         Map<String, Integer> usedPoints = new HashMap<>();
         Iterator<Transaction> itr = transactions.iterator();
-        while (spendablePoints > 0 || itr.hasNext()) {
+        while (spendablePoints != 0 && itr.hasNext()) {
             Transaction item = itr.next();
-            //TODO - spend possible points
+            int availablePoints = item.getAvailablePoints();
+            if (availablePoints != 0) {
+                int remainingPoints = availablePoints - spendablePoints;
+                int spentPoints = spendablePoints;
+                if (remainingPoints >= 0) {
+                    item.setAvailablePoints(remainingPoints);
+                    spendablePoints = 0;
+                } else {
+                    item.setAvailablePoints(0);
+                    spendablePoints = -1 * remainingPoints;
+                    spentPoints = availablePoints;
+                }
+                int points = usedPoints.getOrDefault(item.getPayer(), 0);
+                points += spentPoints;
+                usedPoints.put(item.getPayer(), points);
+            }
         }
         return usedPoints;
+    }
+
+    private boolean filterByPayer(Transaction t, String payer) {
+        if (payer == null || payer.isBlank()) {
+            return true;
+        }
+        return t.getPayer().equals(payer);
     }
 
     public Map<String, Integer> getBalances() {

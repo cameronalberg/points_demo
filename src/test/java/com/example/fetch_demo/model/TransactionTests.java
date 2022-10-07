@@ -36,8 +36,6 @@ public class TransactionTests {
                 () -> new Transaction(null, points, time));
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Transaction(payer, points, null));
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> new Transaction(payer, 0, time));
     }
 
     @Test
@@ -81,6 +79,13 @@ public class TransactionTests {
         Assertions.assertEquals(t, t_same);
         Assertions.assertEquals(t, t);
         Assertions.assertNotEquals(t, t_older);
+    }
+
+    @Test
+    void checkOriginalPointsUnmodified() {
+        Transaction t = new Transaction(payer, points, time);
+        t.setAvailablePoints(points + 100);
+        Assertions.assertEquals(points, t.getOriginalPoints());
     }
 
 }

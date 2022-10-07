@@ -1,7 +1,6 @@
 package com.example.fetch_demo.model;
 
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
@@ -45,12 +44,7 @@ public class Transaction implements Comparable<Transaction>{
     }
 
     public void setAvailablePoints(int availablePoints) {
-        if (availablePoints == 0) {
-            throw new IllegalArgumentException("points cannot be 0");
-        }
-        else {
-            this.availablePoints = availablePoints;
-        }
+        this.availablePoints = availablePoints;
     }
 
     public Instant getTimestamp() {
@@ -84,7 +78,6 @@ public class Transaction implements Comparable<Transaction>{
         Transaction compare = (Transaction) o;
         if (!compare.getPayer().equals(this.getPayer())) return false;
         if (!(compare.getAvailablePoints() == this.getAvailablePoints())) return false;
-        if (!(compare.getTimestamp() == this.getTimestamp())) return false;
-        return true;
+        return compare.getTimestamp().equals(this.getTimestamp());
     }
 }

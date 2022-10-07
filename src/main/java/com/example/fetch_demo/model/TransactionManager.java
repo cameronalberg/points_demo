@@ -1,7 +1,10 @@
 package com.example.fetch_demo.model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.*;
 
+@Component
 public class TransactionManager {
 
     private final TreeSet<Transaction> transactions;
@@ -51,13 +54,6 @@ public class TransactionManager {
         return usedPoints;
     }
 
-    private boolean filterByPayer(Transaction t, String payer) {
-        if (payer == null || payer.isBlank()) {
-            return true;
-        }
-        return t.getPayer().equals(payer);
-    }
-
     public Map<String, Integer> getBalances() {
         Map<String, Integer> payers = new HashMap<>();
         for (Transaction item : transactions) {
@@ -70,6 +66,10 @@ public class TransactionManager {
 
     public int transactionCount() {
         return this.transactions.size();
+    }
+
+    public static boolean validatePoints(int points) {
+        return points >= 0;
     }
 
     @Override

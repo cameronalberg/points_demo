@@ -1,19 +1,22 @@
 package com.example.fetch_demo.model;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
 public class Transaction implements Comparable<Transaction>{
     private String payer;
-    private int points;
+    private int availablePoints;
+    private final int originalPoints;
     private Instant timestamp;
 
     public Transaction(String payer, int points, Instant timestamp)
             throws IllegalArgumentException {
         this.setPayer(payer);
-        this.setPoints(points);
+        this.setAvailablePoints(points);
         this.setTimestamp(timestamp);
+        this.originalPoints = points;
     }
 
     public String getPayer() {
@@ -33,16 +36,20 @@ public class Transaction implements Comparable<Transaction>{
         }
     }
 
-    public int getPoints() {
-        return this.points;
+    public int getOriginalPoints() {
+        return this.originalPoints;
     }
 
-    public void setPoints(int points) {
-        if (points == 0) {
+    public int getAvailablePoints() {
+        return this.availablePoints;
+    }
+
+    public void setAvailablePoints(int availablePoints) {
+        if (availablePoints == 0) {
             throw new IllegalArgumentException("points cannot be 0");
         }
         else {
-            this.points = points;
+            this.availablePoints = availablePoints;
         }
     }
 
@@ -60,6 +67,12 @@ public class Transaction implements Comparable<Transaction>{
     }
 
     @Override
+    public String toString() {
+        return "payer: " + this.getPayer() + ", points: " + this.getAvailablePoints() +
+                ", timestamp: " + this.getTimestamp();
+    }
+
+    @Override
     public int compareTo(Transaction o) {
         return this.getTimestamp().compareTo(o.getTimestamp());
     }
@@ -70,7 +83,7 @@ public class Transaction implements Comparable<Transaction>{
         if (!(o instanceof Transaction)) return false;
         Transaction compare = (Transaction) o;
         if (!compare.getPayer().equals(this.getPayer())) return false;
-        if (!(compare.getPoints() == this.getPoints())) return false;
+        if (!(compare.getAvailablePoints() == this.getAvailablePoints())) return false;
         if (!(compare.getTimestamp() == this.getTimestamp())) return false;
         return true;
     }

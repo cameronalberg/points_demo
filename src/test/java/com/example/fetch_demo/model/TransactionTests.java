@@ -1,15 +1,12 @@
 package com.example.fetch_demo.model;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 @SpringBootTest
 public class TransactionTests {
@@ -28,8 +25,8 @@ public class TransactionTests {
     void canGetTransactionVariables() {
         Transaction transaction = new Transaction(payer, points, time);
         Assertions.assertEquals(payer, transaction.getPayer());
-        Assertions.assertEquals(points, transaction.getPoints());
-        Assertions.assertEquals(points, transaction.getPoints());
+        Assertions.assertEquals(points, transaction.getAvailablePoints());
+        Assertions.assertEquals(points, transaction.getAvailablePoints());
         System.out.println(transaction.getTimestamp());
     }
 

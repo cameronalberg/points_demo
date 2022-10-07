@@ -3,6 +3,7 @@ package com.example.fetch_demo.model;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
+import java.util.Map;
 
 public class Transaction implements Comparable<Transaction>{
     private String payer;

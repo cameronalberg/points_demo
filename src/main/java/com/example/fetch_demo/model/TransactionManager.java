@@ -13,8 +13,24 @@ public class TransactionManager {
         this.transactions = new TreeSet<>();
     }
 
-    // Transaction is added to set - if transaction has negative points, the
-    // points are deducted from the oldest
+
+    public static class usedPointResponse {
+        private final String payer;
+        private final int points;
+
+        public usedPointResponse(String payer, int usedPoints) {
+            this.payer = payer;
+            this.points = -1 * usedPoints;
+        }
+
+        public String getPayer() {
+            return this.payer;
+        }
+
+        public int getPoints() {
+            return this.points;
+        }
+    }
     public void addTransaction(Transaction t) {
         transactions.add(t);
     }

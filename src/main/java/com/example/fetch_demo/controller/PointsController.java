@@ -36,12 +36,12 @@ public class PointsController{
 //                    HttpStatus.BAD_REQUEST);
 //        }
         manager.addTransaction(t);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(path = "/spend")
+    @PutMapping(path = "/spend")
     @CrossOrigin
-    public ResponseEntity<Object> spendPoints(@RequestParam int points) {
+    public ResponseEntity<Object> spendPoints(@RequestBody int points) {
         if (!TransactionManager.validatePoints(points)) {
             return new ResponseEntity<>("points must be >= 0",
                     HttpStatus.BAD_REQUEST);

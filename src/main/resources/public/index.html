@@ -62,7 +62,7 @@
             </div>
 		    <nav id="docs-nav" class="docs-nav navbar">
 			    <ul class="section-items list-unstyled nav flex-column pb-3">
-				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>Introduction</a></li>
+				    <li class="nav-item section-title"><a class="nav-link scrollto" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>Introduction</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Prompt</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-1-2">Overview</a></li>
 				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-2"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-down"></i></span>Installation</a></li>
@@ -173,7 +173,7 @@
 						 </div>
 
 						 <div style="padding-top: 20px">
-							 <h5>Query Parameters:</h5>
+							 <h5>Request Body Schema:  <code> application/json</code></h5>
 							 <div class="table-responsive my-4">
 								 <table class="table table-striped">
 									 <thead>
@@ -203,11 +203,26 @@
 								 </table>
 							 </div>
 						 </div>
-
+						 <h4>Example Usage</h4>
+						 <h5>Request URL:</h5>
+						 <div class="docs-code-block">
+							 <pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs"> https://{service_url}/add </code></pre>
+						 </div><!--//docs-code-block-->
+						 <h5>Request Body (required):</h5>
+						 <div class="docs-code-block">
+							<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs">{
+    <span class="hljs-attr">"payer"</span>: <span class="hljs-string">"DANNON"</span>,
+    <span class="hljs-attr">"points"</span>: <span class="hljs-literal">100</span>,
+    <span class="hljs-attr">"timestamp"</span>:<span class="hljs-attr">"2020-11-01T14:00:00Z"</span>
+}
+</code></pre>
+						 </div><!--//docs-code-block-->
 						 <div style="padding-top: 20px">
 							 <h5>Responses:</h5>
-							 <div style="width: fit-content" class="alert alert-success" role="alert">200 OK</div>
+							 <div style="width: fit-content" class="alert alert-success" role="alert">201 CREATED</div>
+							 <p>The transaction was successfully added to the system.</p>
 							 <div style="width: fit-content" class="alert alert-danger" role="alert">400 BAD REQUEST</div>
+							 <p> An error was encountered while trying to add the transaction. If possible, error details will be provided in the response body.</p>
 						 </div>
 					</section><!--//section-->
 					
@@ -215,17 +230,78 @@
 						<h2 class="section-heading">Spend Points</h2>
 						<div>
 							<p style="display: inline">HTTP Method: </p>
-							<div style="display: inline" class="alert alert-warning" role="alert">GET</div>
+							<div style="display: inline" class="alert alert-primary" role="alert">PUT</div>
 						</div>
 
 						<div style="padding-top: 20px">
-
+							<h5>Query Parameters:</h5>
+							<div class="table-responsive my-4">
+								<table class="table table-striped">
+									<thead>
+									<tr>
+										<th scope="col">key</th>
+										<th scope="col">type</th>
+										<th scope="col">description</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>points</td>
+										<td>integer <code>&gt;= 0</code></td>
+										<td><p>Number of points to be spent.</p><p>Cannot be negative.</p><p>Example: <code>5000</code></p></td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 
 						<div style="padding-top: 20px">
 							<h5>Responses:</h5>
 							<div style="width: fit-content" class="alert alert-success" role="alert">200 OK</div>
+							<div style="padding-top: 20px">
+								<h5>Response Schema:  <code> application/json</code></h5>
+								<div class="table-responsive my-4">
+									<table class="table table-striped">
+										<thead>
+										<tr>
+											<th scope="col"></th>
+											<th scope="col">key</th>
+											<th scope="col">value</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<th scope="row">type</th>
+											<td>string</td>
+											<td>integer <code>&lt; 0</code></td>
+
+										</tr>
+										<tr>
+											<th scope="row">description</th>
+											<td><p>Name of payer.</p></td>
+											<td><p>Number of payer points spent.</p></td>
+										</tr>
+										<tr>
+											<th scope="row">example</th>
+											<td><code>"DANNON"</code></td>
+											<td><code>-100</code></td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<p> All possible points were spent. The response body indicates which payer's points were spent. <b>Note: </b> The sum of the returned points may be less than the number of points specified to be spent, in the event that not enough points were available. </p>
+							<h4>Example Response</h4>
+							<div class="docs-code-block">
+							<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs">{
+    <span class="hljs-attr">"DANNON"</span>: <span class="hljs-literal">-100</span>,
+    <span class="hljs-attr">"UNILEVER"</span>: <span class="hljs-literal">-200</span>,
+    <span class="hljs-attr">"MILLER COORS"</span>: <span class="hljs-literal">-4700</span>
+}
+</code></pre>
+							</div>
 							<div style="width: fit-content" class="alert alert-danger" role="alert">400 BAD REQUEST</div>
+							<p> An error was encountered while trying to add the transaction. If possible, error details will be provided in the response body.</p>
 						</div>
 					</section><!--//section-->
 					
@@ -236,14 +312,59 @@
 							<div style="display: inline" class="alert alert-warning" role="alert">GET</div>
 						</div>
 
-						<div style="padding-top: 20px">
-							<p>Query Parameters</p>
+						<div style="padding-top: 20px; padding-bottom: 20px">
+							<h5>Query Parameters:</h5>
+							<p>None</p>
 						</div>
+						<h4>Example Usage</h4>
+						<h5>Request URL:</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs"> https://{service_url}/balance </code></pre>
+						</div><!--//docs-code-block-->
 
 						<div style="padding-top: 20px">
-							<h5>Responses:</h5>
+							<h5>Response:</h5>
 							<div style="width: fit-content" class="alert alert-success" role="alert">200 OK</div>
-							<div style="width: fit-content" class="alert alert-danger" role="alert">400 BAD REQUEST</div>
+							<div style="padding-top: 20px">
+								<h5>Response Schema:  <code> application/json</code></h5>
+								<div class="table-responsive my-4">
+									<table class="table table-striped">
+										<thead>
+										<tr>
+											<th scope="col"></th>
+											<th scope="col">key</th>
+											<th scope="col">value</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<th scope="row">type</th>
+											<td>string</td>
+											<td>integer <code>&gt;= 0</code></td>
+
+										</tr>
+										<tr>
+											<th scope="row">description</th>
+											<td><p>Name of payer.</p></td>
+											<td><p>Number of points remaining for payer.</p></td>
+										</tr>
+										<tr>
+											<th scope="row">example</th>
+											<td><code>"DANNON"</code></td>
+											<td><code>100</code></td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<h4>Example Response</h4>
+							<div class="docs-code-block">
+							<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs">{
+    <span class="hljs-attr">"DANNON"</span>: <span class="hljs-literal">1000</span>,
+    <span class="hljs-attr">"UNILEVER"</span>: <span class="hljs-literal">0</span>,
+    <span class="hljs-attr">"MILLER COORS"</span>: <span class="hljs-literal">5300</span>
+}
+</code></pre>
 						</div>
 					</section><!--//section-->
 			    </article><!--//docs-article-->

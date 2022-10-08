@@ -9,16 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.boot.web.servlet.error.ErrorController;
-
-import java.time.Instant;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-public class PointsController implements ErrorController{
+public class PointsController{
     private final TransactionManager manager;
 
     @Autowired
@@ -58,6 +54,7 @@ public class PointsController implements ErrorController{
     }
 
     @PostMapping(path = "/add")
+    @CrossOrigin
     public ResponseEntity<Object> addTransaction(@RequestBody Transaction t) {
 
 //        try {
@@ -74,6 +71,7 @@ public class PointsController implements ErrorController{
     }
 
     @RequestMapping(path = "/spend")
+    @CrossOrigin
     public ResponseEntity<Object> spendPoints(@RequestParam int points) {
         if (!TransactionManager.validatePoints(points)) {
             return new ResponseEntity<>("points must be >= 0",
@@ -90,14 +88,10 @@ public class PointsController implements ErrorController{
     }
 
     @RequestMapping(path = "/balance")
+    @CrossOrigin
     public ResponseEntity<Object> pointBalances() {
         return new ResponseEntity<>(manager.getBalances(),
                 HttpStatus.OK);
-    }
-
-    @RequestMapping(path="/error")
-    public ResponseEntity<Object> returnError() {
-        return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
     }
 
 }

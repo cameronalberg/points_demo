@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>Cameron Alberg Demo</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="Demo Web Service for Fetch Rewards">
+    <meta name="author" content="Cameron Alberg">
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+    
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="assets/plugins/simplelightbox/simple-lightbox.min.css">
+
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
+
+</head> 
+
+<body class="docs-page">    
+    <header class="header fixed-top">	    
+        <div class="branding docs-branding">
+            <div class="container-fluid position-relative py-2">
+                <div class="docs-logo-wrapper">
+					<button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+	                    <span></span>
+	                    <span></span>
+	                    <span></span>
+	                </button>
+	                <div class="site-logo"><a class="navbar-brand" href="index.html"><img class="logo-icon me-2" src="assets/images/fetch_logo.png" alt="logo"><span class="logo-text">Coding Exercise<span class="text-alt"> (Cameron Alberg)</span></span></a></div>
+
+                </div><!--//docs-logo-wrapper-->
+	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+					<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
+						<li class="list-inline-item"><a href="https://github.com/cameronalberg"><i class="fab fa-github fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="https://linkedin.com/in/cameronalberg"><i class="fab fa-linkedin fa-fw"></i></a></li>
+		            </ul><!--//social-list-->
+		            <a href="files/cameronalberg_resume.pdf" class="btn btn-primary d-none d-lg-flex">Resume</a>
+	            </div><!--//docs-top-utilities-->
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+    
+    
+    <div class="docs-wrapper">
+	    <div id="docs-sidebar" class="docs-sidebar">
+		    <div class="top-search-box d-lg-none p-3">
+                <form class="search-form">
+		            <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
+		            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+		        </form>
+            </div>
+		    <nav id="docs-nav" class="docs-nav navbar">
+			    <ul class="section-items list-unstyled nav flex-column pb-3">
+				    <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>Introduction</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-1-1">Prompt</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-1-2">Overview</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-2"><span class="theme-icon-holder me-2"><i class="fas fa-arrow-down"></i></span>Installation</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-1">Docker</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-2">JAR</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-3"><span class="theme-icon-holder me-2"><i class="fas fa-box"></i></span>API Usage</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-1">Add Transactions</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-2">Spend Points</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-3">Check Payer Balances</a></li>
+			    </ul>
+
+		    </nav><!--//docs-nav-->
+	    </div><!--//docs-sidebar-->
+	    <div class="docs-content">
+		    <div class="container">
+			    <article class="docs-article" id="section-1">
+				    <header class="docs-header">
+					    <section class="docs-intro">
+							<p>Welcome! This web service was developed as part of a coding exercise for Fetch Rewards. This service was developed using the Spring Boot framework.</p>
+						</section><!--//docs-intro-->
+						
+						<h5>Github Code Example:</h5>
+						<p>You can <a class="theme-link" href="https://gist.github.com/"  target="_blank">embed your code snippets using Github gists</a></p>
+						<div class="docs-code-block">
+							<!-- ** Embed github code starts ** -->
+							<script src="https://gist.github.com/xriley/fce6cf71edfd2dadc7919eb9c98f3f17.js"></script>
+							<!-- ** Embed github code ends ** -->
+						</div><!--//docs-code-block-->
+						
+					     <h5>Highlight.js Example:</h5>
+						<p>You can <a class="theme-link" href="https://github.com/highlightjs/highlight.js" target="_blank">embed your code snippets using highlight.js</a> It supports <a class="theme-link" href="https://highlightjs.org/static/demo/" target="_blank">185 languages and 89 styles</a>.</p>
+						<p>This template uses <a class="theme-link" href="https://highlightjs.org/static/demo/" target="_blank">Atom One Dark</a> style for the code blocks: <br><code>&#x3C;link rel=&#x22;stylesheet&#x22; href=&#x22;//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css&#x22;&#x3E;</code></p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs">[
+  {
+    <span class="hljs-attr">"title"</span>: <span class="hljs-string">"apples"</span>,
+    <span class="hljs-attr">"count"</span>: [<span class="hljs-number">12000</span>, <span class="hljs-number">20000</span>],
+    <span class="hljs-attr">"description"</span>: {<span class="hljs-attr">"text"</span>: <span class="hljs-string">"..."</span>, <span class="hljs-attr">"sensitive"</span>: <span class="hljs-literal">false</span>}
+  },
+  {
+    <span class="hljs-attr">"title"</span>: <span class="hljs-string">"oranges"</span>,
+    <span class="hljs-attr">"count"</span>: [<span class="hljs-number">17500</span>, <span class="hljs-literal">null</span>],
+    <span class="hljs-attr">"description"</span>: {<span class="hljs-attr">"text"</span>: <span class="hljs-string">"..."</span>, <span class="hljs-attr">"sensitive"</span>: <span class="hljs-literal">false</span>}
+  }
+]
+
+
+</code></pre>
+						</div><!--//docs-code-block-->
+						
+						
+				    </header>
+				    <section class="docs-section" id="item-1-1">
+						<h2 class="section-heading">Prompt</h2>
+						<p>The service requirements defined for the exercise are listed below:</p>
+						<blockquote>
+							<p>
+								"Our users have points in their accounts. Users only see a single balance in their accounts. But for reporting purposes we actually track their points per
+							payer/partner. In our system, each transaction record contains: payer (string), points (integer), timestamp (date).
+							For earning points it is easy to assign a payer, we know which actions earned the points. And thus which partner should be paying for the points.
+							When a user spends points, they don't know or care which payer the points come from. But, our accounting team does care how the points are spent.
+							There are two rules for determining what points to "spend" first:
+								<ul>
+									<li>We want the oldest points to be spent first (oldest based on transaction timestamp, not the order they’re received)</li>
+									<li> We want no payer's points to go negative."</li>
+								</ul>
+
+							Provide routes that:
+							<ul>
+								<li>Add transactions for a specific payer and date.</li>
+								<li>Spend points using the rules above and return a list of { "payer": &lt;string&gt;, "points": &lt;integer&gt; } for each call.</li>
+								<li> Return all payer point balances.</li>
+							</ul>
+							</p>
+						</blockquote>
+					</section><!--//section-->
+					
+					<section class="docs-section" id="item-1-2">
+						<h2 class="section-heading">Overview</h2>
+						<p> This service provides the three requested API endpoints (add transaction, spend points, get balances) and operates with the conditions outlined in the requirements. In the absence of an exhaustive set of allowable conditions (and the stated request to use best judgement), several additional assumptions were made on the desired system requirements:</p>
+						<h5 class="mt-5">Assumptions:</h5>
+					</section><!--//section-->
+					
+					<section class="docs-section" id="item-1-3">
+						<h2 class="section-heading">Section Item 1.3</h2>
+						<p>Vivamus efficitur fringilla ullamcorper. Cras condimentum condimentum mauris, vitae facilisis leo. Aliquam sagittis purus nisi, at commodo augue convallis id. Sed interdum turpis quis felis bibendum imperdiet. Mauris pellentesque urna eu leo gravida iaculis. In fringilla odio in felis ultricies porttitor. Donec at purus libero. Vestibulum libero orci, commodo nec arcu sit amet, commodo sollicitudin est. Vestibulum ultricies malesuada tempor.</p>
+						<h5>Badges Examples:</h5>
+						<div class="my-4">
+						    <span class="badge badge-primary">Primary</span>
+							<span class="badge badge-secondary">Secondary</span>
+							<span class="badge badge-success">Success</span>
+							<span class="badge badge-danger">Danger</span>
+							<span class="badge badge-warning">Warning</span>
+							<span class="badge badge-info">Info</span>
+							<span class="badge badge-light">Light</span>
+							<span class="badge badge-dark">Dark</span>
+						</div>
+						<h5>Button Examples:</h5>
+						<div class="row my-3">
+                        <div class="col-md-6 col-12">
+                                <ul class="list list-unstyled pl-0">
+                                    <li><a href="#" class="btn btn-primary">Primary Button</a></li>
+                                    <li><a href="#" class="btn btn-secondary">Secondary Button</a></li>
+                                    <li><a href="#" class="btn btn-light">Light Button</a></li>
+                                    <li><a href="#" class="btn btn-success">Succcess Button</a></li>
+                                    <li><a href="#" class="btn btn-info">Info Button</a></li>
+                                    <li><a href="#" class="btn btn-warning">Warning Button</a></li>
+                                    <li><a href="#" class="btn btn-danger">Danger Button</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <ul class="list list-unstyled pl-0">
+                                    <li><a href="#" class="btn btn-primary"><i class="fas fa-download me-2"></i> Download Now</a></li>
+                                    <li><a href="#" class="btn btn-secondary"><i class="fas fa-book me-2"></i> View Docs</a></li>
+                                    <li><a href="#" class="btn btn-light"><i class="fas fa-arrow-alt-circle-right me-2"></i> View Features</a></li>
+                                    <li><a href="#" class="btn btn-success"><i class="fas fa-code-branch me-2"></i> Fork Now</a></li>
+                                    <li><a href="#" class="btn btn-info"><i class="fas fa-play-circle me-2"></i> Find Out Now</a></li>
+                                    <li><a href="#" class="btn btn-warning"><i class="fas fa-bug me-2"></i> Report Bugs</a></li>
+                                    <li><a href="#" class="btn btn-danger"><i class="fas fa-exclamation-circle me-2"></i> Submit Issues</a></li>
+                                </ul>
+                            </div>
+                        </div><!--//row-->
+                        
+                        <h5>Progress Examples:</h5>
+                        <div class="my-4">
+	                        <div class="progress my-4">
+								<div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="progress my-4">
+							    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="progress my-4">
+							    <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="progress my-4">
+							    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+                        </div>
+					</section><!--//section-->
+
+			    </article>
+			    
+			    <article class="docs-article" id="section-2">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">Installation</h1>
+					    <section class="docs-intro">
+							<p>This service can be deployed via Docker or using an executable JAR file.</p>
+						</section><!--//docs-intro-->
+				    </header>
+				     <section class="docs-section" id="item-2-1">
+						<h2 class="section-heading">Docker</h2>
+						 <p>The Docker Engine is required to deploy this web service with Docker. </p>
+						 <p>The latest docker image can be retrieved using the following command:</p>
+						 <div class="docs-code-block">
+							 <pre class="shadow-lg rounded"><code class="json hljs"> docker pull calberg/XXX </code></pre>
+						 </div><!--//docs-code-block-->
+						 <p>The image can be run as a container with the following command:</p>
+						 <div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs"> docker run -p {host_port}:8080 calberg/XXX </code></pre>
+						 </div><!--//docs-code-block-->
+						 <p><code>host_port</code> can be 8080 or another port number if 8080 is already taken.</p>
+					</section><!--//section-->
+					
+					<section class="docs-section" id="item-2-2">
+						<h2 class="section-heading">JAR</h2>
+						<p><a href="https://www.oracle.com/java/technologies/downloads/#java11">Java 11</a> is required to run this application via a JAR File.</p>
+						<p>The latest release of this API can be downloaded as a .jar package <a href="#">here</a></p>
+						<p>If Java is installed, the application can be started with the following command: </p>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded"><code class="json hljs"> java -jar ./{latestReleaseName}.jar</code></pre>
+						</div><!--//docs-code-block-->
+					</section><!--//section-->
+					
+			    </article><!--//docs-article-->
+			    
+			    
+			    <article class="docs-article" id="section-3">
+				    <header class="docs-header">
+					    <h1 class="docs-heading">API Usage</h1>
+					    <section class="docs-intro">
+						    <p>Section intro goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque finibus condimentum nisl id vulputate. Praesent aliquet varius eros interdum suscipit. Donec eu purus sed nibh convallis bibendum quis vitae turpis. Duis vestibulum diam lorem, vitae dapibus nibh facilisis a. Fusce in malesuada odio.</p>
+						</section><!--//docs-intro-->
+				    </header>
+				     <section class="docs-section" id="item-3-1">
+						<h2 class="section-heading">Section Item 3.1</h2>
+						<p>Vivamus efficitur fringilla ullamcorper. Cras condimentum condimentum mauris, vitae facilisis leo. Aliquam sagittis purus nisi, at commodo augue convallis id. Sed interdum turpis quis felis bibendum imperdiet. Mauris pellentesque urna eu leo gravida iaculis. In fringilla odio in felis ultricies porttitor. Donec at purus libero. Vestibulum libero orci, commodo nec arcu sit amet, commodo sollicitudin est. Vestibulum ultricies malesuada tempor.</p>
+					</section><!--//section-->
+					
+					<section class="docs-section" id="item-3-2">
+						<h2 class="section-heading">Section Item 3.2</h2>
+						<p>Vivamus efficitur fringilla ullamcorper. Cras condimentum condimentum mauris, vitae facilisis leo. Aliquam sagittis purus nisi, at commodo augue convallis id. Sed interdum turpis quis felis bibendum imperdiet. Mauris pellentesque urna eu leo gravida iaculis. In fringilla odio in felis ultricies porttitor. Donec at purus libero. Vestibulum libero orci, commodo nec arcu sit amet, commodo sollicitudin est. Vestibulum ultricies malesuada tempor.</p>
+					</section><!--//section-->
+					
+					<section class="docs-section" id="item-3-3">
+						<h2 class="section-heading">Section Item 3.3</h2>
+						<p>Vivamus efficitur fringilla ullamcorper. Cras condimentum condimentum mauris, vitae facilisis leo. Aliquam sagittis purus nisi, at commodo augue convallis id. Sed interdum turpis quis felis bibendum imperdiet. Mauris pellentesque urna eu leo gravida iaculis. In fringilla odio in felis ultricies porttitor. Donec at purus libero. Vestibulum libero orci, commodo nec arcu sit amet, commodo sollicitudin est. Vestibulum ultricies malesuada tempor.</p>
+					</section><!--//section-->
+			    </article><!--//docs-article-->
+			    
+			    <footer class="footer">
+				    <div class="container text-center py-5">
+				        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+			            <small class="copyright">The template used for this document was designed by <a class="theme-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a></small>
+				    </div>
+			    </footer>
+		    </div> 
+	    </div>
+    </div><!--//docs-wrapper-->
+   
+       
+    <!-- Javascript -->          
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
+    
+    
+    <!-- Page Specific JS -->
+    <script src="assets/plugins/smoothscroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+    <script src="assets/js/highlight-custom.js"></script> 
+    <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>      
+    <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
+    <script src="assets/js/docs.js"></script> 
+
+</body>
+</html> 
+

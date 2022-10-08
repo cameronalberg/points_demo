@@ -22,37 +22,6 @@ public class PointsController{
         this.manager = new TransactionManager();
     }
 
-    @ExceptionHandler(TypeMismatchException.class)
-    public ResponseEntity<Object> handleTypeMismatchException() {
-        return new ResponseEntity<>("type mismatch in request parameters. " +
-                "refer to API documentation for correct syntax.",
-                HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ResponseEntity<Object> handleMissingRequestParamException() {
-        return new ResponseEntity<>("required request parameter not found." +
-                "refer to API documentation for correct syntax.",
-                HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<Object> handleUnreadableHTTPMessageException() {
-        return new ResponseEntity<>("message could not be parsed. please " +
-                "refer to API documentation for correct syntax",
-                HttpStatus.BAD_REQUEST);
-    }
-
-    @RequestMapping(path="/")
-    public String root() {
-        return "redirect:usage";
-    }
-
-    @RequestMapping(path="/usage")
-    public String usage() {
-        return "placeholder for API docs.";
-    }
-
     @PostMapping(path = "/add")
     @CrossOrigin
     public ResponseEntity<Object> addTransaction(@RequestBody Transaction t) {
@@ -92,6 +61,27 @@ public class PointsController{
     public ResponseEntity<Object> pointBalances() {
         return new ResponseEntity<>(manager.getBalances(),
                 HttpStatus.OK);
+    }
+
+    @ExceptionHandler(TypeMismatchException.class)
+    public ResponseEntity<Object> handleTypeMismatchException() {
+        return new ResponseEntity<>("type mismatch in request parameters. " +
+                "refer to API documentation for correct syntax.",
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<Object> handleMissingRequestParamException() {
+        return new ResponseEntity<>("required request parameter not found." +
+                "refer to API documentation for correct syntax.",
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Object> handleUnreadableHTTPMessageException() {
+        return new ResponseEntity<>("message could not be parsed. please " +
+                "refer to API documentation for correct syntax",
+                HttpStatus.BAD_REQUEST);
     }
 
 }

@@ -45,11 +45,11 @@ The Docker Engine is required to deploy this web service with Docker.
 The latest docker image can be retrieved using the following command:
 
 ```
-docker pull calberg/XXX
+docker pull calberg/points_demo
 ```
 The image can be run as a container with the following command:
 ```
- docker run -p {host_port}:8080 calberg/XXX 
+ docker run -p {host_port}:8080 calberg/points_demo 
 ```
 ```host_port``` can be 8080 or another port number if 8080 is already taken.
 ## JAR

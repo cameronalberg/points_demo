@@ -138,11 +138,11 @@
 						 <p>The Docker Engine is required to deploy this web service with Docker. </p>
 						 <p>The latest docker image can be retrieved using the following command:</p>
 						 <div class="docs-code-block">
-							 <pre class="shadow-lg rounded"><code class="json hljs"> docker pull calberg/XXX </code></pre>
+							 <pre class="shadow-lg rounded"><code class="json hljs"> docker pull calberg/points_demo </code></pre>
 						 </div><!--//docs-code-block-->
 						 <p>The image can be run as a container with the following command:</p>
 						 <div class="docs-code-block">
-							<pre class="shadow-lg rounded"><code class="json hljs"> docker run -p {host_port}:8080 calberg/XXX </code></pre>
+							<pre class="shadow-lg rounded"><code class="json hljs"> docker run -p {host_port}:8080 calberg/points_demo </code></pre>
 						 </div><!--//docs-code-block-->
 						 <p><code>host_port</code> can be 8080 or another port number if 8080 is already taken.</p>
 					</section><!--//section-->
@@ -221,10 +221,10 @@
 </code></pre>
 						 </div><!--//docs-code-block-->
 						 <div style="padding-top: 20px">
-							 <h5>Responses:</h5>
+							 <h4>Responses:</h4>
 							 <div style="width: fit-content" class="alert alert-success" role="alert">201 CREATED</div>
 							 <p>The transaction was successfully added to the system (or already existed). A transactionID will be provided in the response body, which can be used to retrieve the transaction details via the <a href="#item-3-4">transaction lookup</a> endpoint. </p>
-							 <h4>Example Response</h4>
+							 <h5>Example Response</h5>
 							 <div class="docs-code-block">
 							<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs">{
     <span class="hljs-attr">"transactionID"</span>: <span class="hljs-literal">3</span>
@@ -237,7 +237,7 @@
 					</section><!--//section-->
 					
 					<section class="docs-section" id="item-3-2">
-						<h2 class="section-heading">Spend Points</h2>
+						<h2 class="section-heading">Spend Points (/spend)</h2>
 						<div>
 							<p style="display: inline">HTTP Method: </p>
 							<div style="display: inline" class="alert alert-primary" role="alert">PUT</div>
@@ -273,8 +273,9 @@
 						</div>
 
 						<div style="padding-top: 20px">
-							<h5>Responses:</h5>
+							<h4>Responses:</h4>
 							<div style="width: fit-content" class="alert alert-success" role="alert">200 OK</div>
+							<p> All possible points were spent. The response body indicates which payer's points were spent. <b>Note: </b> The sum of the returned points may be less than the number of points specified to be spent, in the event that not enough points were available. </p>
 							<div style="padding-top: 20px">
 								<h5>Response Schema:  <code> application/json</code></h5>
 								<div class="table-responsive my-4">
@@ -307,8 +308,7 @@
 									</table>
 								</div>
 							</div>
-							<p> All possible points were spent. The response body indicates which payer's points were spent. <b>Note: </b> The sum of the returned points may be less than the number of points specified to be spent, in the event that not enough points were available. </p>
-							<h4>Example Response</h4>
+							<h5>Example Response</h5>
 							<div class="docs-code-block">
 							<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs">{
     <span class="hljs-attr">"DANNON"</span>: <span class="hljs-literal">-100</span>,
@@ -318,12 +318,12 @@
 </code></pre>
 							</div>
 							<div style="width: fit-content" class="alert alert-danger" role="alert">400 BAD REQUEST</div>
-							<p> An error was encountered while trying to add the transaction. If possible, error details will be provided in the response body.</p>
+							<p> An error was encountered while trying to spend the points requested. If possible, error details will be provided in the response body.</p>
 						</div>
 					</section><!--//section-->
 					
 					<section class="docs-section" id="item-3-3">
-						<h2 class="section-heading">Get Payer Balances</h2>
+						<h2 class="section-heading">Get Payer Balances (/balance)</h2>
 						<div>
 							<p style="display: inline">HTTP Method: </p>
 							<div style="display: inline" class="alert alert-warning" role="alert">GET</div>
@@ -374,7 +374,7 @@
 									</table>
 								</div>
 							</div>
-							<h4>Example Response</h4>
+							<h5>Example Response</h5>
 							<div class="docs-code-block">
 							<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs">{
     <span class="hljs-attr">"DANNON"</span>: <span class="hljs-literal">1000</span>,
@@ -386,7 +386,7 @@
 						</div>
 					</section><!--//section-->
 					<section class="docs-section" id="item-3-4">
-						<h2 class="section-heading">Lookup Transaction</h2>
+						<h2 class="section-heading">Lookup Transaction (/transactions)</h2>
 						<div>
 							<p style="display: inline">HTTP Method: </p>
 							<div style="display: inline" class="alert alert-warning" role="alert">GET</div>
@@ -421,7 +421,7 @@
 						</div><!--//docs-code-block-->
 
 						<div style="padding-top: 20px">
-							<h5>Responses:</h5>
+							<h4>Responses:</h4>
 							<div style="width: fit-content" class="alert alert-success" role="alert">200 OK</div>
 							<div style="padding-top: 20px">
 								<h5>Response Body Schema:  <code> application/json</code></h5>
@@ -459,7 +459,7 @@
 									</table>
 								</div>
 							</div>
-							<h4>Example Response</h4>
+							<h5>Example Response</h5>
 							<div class="docs-code-block">
 							<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs">{
     <span class="hljs-attr">"payer"</span>: <span class="hljs-string">"DANNON"</span>,

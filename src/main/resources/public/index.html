@@ -115,6 +115,8 @@
 						<p> This service provides the three requested API endpoints (add transaction, spend points, get balances) and operates with the conditions outlined in the requirements. In the absence of an exhaustive set of allowable conditions (and the stated request to use best judgement), several additional assumptions were made on the desired system requirements:</p>
 						<h5 class="mt-5">Assumptions:</h5>
 						<ul>
+							<li>All parseable transactions posted to the transaction route are considered to have valid point values and will not result in a payer's balance becoming negative. </li>
+							<li>Spend calls are considered separate from the transactions added via the transaction route, and are therefore not stored as transactions.</li>
 							<li>Transactions that contain the same name and timestamp are considered duplicates and are not re-added.</li>
 							<li>If a spend call requests to spend more points than are possible, the maximum amount of possible points will be spent.</li>
 							<li>A user of the service may want to retrieve the details of a previously added transaction, and so the response to the add transaction route should return a reference to the added transaction.</li>

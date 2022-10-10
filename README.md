@@ -55,7 +55,7 @@ The image can be run as a container with the following command:
 ## JAR
 Java 11 is required to run this application via a JAR File.
 
-The latest release of this API can be downloaded as a .jar package here
+The latest release of this API can be downloaded as a .jar package in the releases section of this repository.
 
 If Java is installed, the application can be started with the following command: 
 ```

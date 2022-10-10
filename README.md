@@ -5,6 +5,8 @@ Welcome! This web service was developed as part of a coding exercise for Fetch R
 
 The repository for this project is available here: https://github.com/cameronalberg/points_demo
 
+A live demo of this API is available at https://points-demo.calberg.me
+
 ## Prompt
 The service requirements defined for the exercise are listed below:
 

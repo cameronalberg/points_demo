@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -29,9 +28,9 @@ public class PointsController{
     @PostMapping(path = "/add")
     @CrossOrigin
     public ResponseEntity<Object> addTransaction(@RequestBody Transaction t) {
-        System.out.println(t.getTimestamp());
-        manager.addTransaction(t);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        int id = manager.addTransaction(t);
+        String output = "{\"transactionID\":" +  id + "}";
+        return new ResponseEntity<>(output, HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/spend")
@@ -58,11 +57,17 @@ public class PointsController{
                 HttpStatus.OK);
     }
 
-    @ExceptionHandler(TypeMismatchException.class)
-    public ResponseEntity<Object> handleTypeMismatchException() {
-        return new ResponseEntity<>("Type mismatch in request parameters. " +
-                "refer to API documentation for correct syntax.",
-                HttpStatus.BAD_REQUEST);
+    @RequestMapping(path = "/transactions/{id}")
+    @CrossOrigin
+    public ResponseEntity<Object> findTransaction(@PathVariable int id) {
+        Transaction t = manager.getTransaction(id);
+        if (t == null) {
+            return new ResponseEntity<>("{\"error\": \"transactionID could not be found\"",
+                    HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(t, HttpStatus.OK);
+        }
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)

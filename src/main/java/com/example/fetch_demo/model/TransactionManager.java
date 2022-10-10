@@ -31,12 +31,33 @@ public class TransactionManager {
             return this.points;
         }
     }
-    public void addTransaction(Transaction t) {
-        transactions.add(t);
+    public int addTransaction(Transaction t) {
+        int id = -1;
+        for (Transaction item : this.transactions) {
+            if (item.equals(t)) {
+                id = item.getTransactionID();
+            }
+        }
+        if (id < 0) {
+            id = this.transactions.size();
+            t.setTransactionID(id);
+            transactions.add(t);
+        }
+        return id;
     }
 
     public List<Transaction> getTransactions() {
         return List.copyOf(this.transactions);
+    }
+
+    public Transaction getTransaction(int id) {
+        Transaction t = null;
+        for (Transaction item : this.transactions) {
+            if (item.getTransactionID() == id) {
+                t = item;
+            }
+        }
+        return t;
     }
 
     public Transaction getOldest() {

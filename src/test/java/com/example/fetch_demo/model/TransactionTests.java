@@ -18,6 +18,7 @@ public class TransactionTests {
     Transaction t;
     Transaction t_same;
     Transaction t_older;
+    Transaction t_newer;
 
     @BeforeEach
     void setup() {
@@ -29,6 +30,7 @@ public class TransactionTests {
         t = new Transaction(payer, points, time);
         t_same = new Transaction(payer, points, time);
         t_older = new Transaction(payer, points, time_older);
+        t_older = new Transaction(payer, points, time_newer);
     }
 
     @Test
@@ -60,17 +62,12 @@ public class TransactionTests {
 
     @Test
     void payerBecomesCapitalized() {
-        Transaction transaction = new Transaction(payer, points, time);
-        Assertions.assertNotEquals("test1", transaction.getPayer());
-        Assertions.assertEquals("TEST1", transaction.getPayer());
+        Assertions.assertNotEquals("test1", t.getPayer());
+        Assertions.assertEquals("TEST1", t.getPayer());
     }
 
     @Test
     void transactionsCompareCorrectly() {
-        Transaction t = new Transaction(payer, points, time);
-        Transaction t_same = new Transaction(payer, points, time);
-        Transaction t_older = new Transaction(payer, points, time_older);
-        Transaction t_newer = new Transaction(payer, points, time_newer);
         Assertions.assertTrue(t.compareTo(t_older) > 0);
         Assertions.assertTrue(t.compareTo(t_newer) < 0);
         Assertions.assertEquals(0, t.compareTo(t_same));
@@ -78,9 +75,11 @@ public class TransactionTests {
 
     @Test
     void checkEquality() {
+        Transaction tDiffName = new Transaction("test3", points, time);
         Assertions.assertEquals(t, t_same);
         Assertions.assertEquals(t, t);
         Assertions.assertNotEquals(t, t_older);
+        Assertions.assertNotEquals(t, tDiffName);
     }
 
     @Test

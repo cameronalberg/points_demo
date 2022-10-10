@@ -1,5 +1,7 @@
 package com.example.fetch_demo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
@@ -7,8 +9,11 @@ import java.util.Locale;
 public class Transaction implements Comparable<Transaction>{
     private String payer;
     private int availablePoints;
-    private final int originalPoints;
     private Instant timestamp;
+    private int transactionID;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private final int originalPoints;
 
     public Transaction(String payer, int points, String timestamp)
             throws IllegalArgumentException {
@@ -33,6 +38,13 @@ public class Transaction implements Comparable<Transaction>{
         else {
             this.payer = input.toUpperCase(Locale.ROOT);
         }
+    }
+
+    public int getTransactionID() {
+        return this.transactionID;
+    }
+    public void setTransactionID(int id) {
+        this.transactionID = id;
     }
 
     public int getOriginalPoints() {
@@ -75,8 +87,12 @@ public class Transaction implements Comparable<Transaction>{
     }
 
     @Override
-    public int compareTo(Transaction o) {
-        return this.getTimestamp().compareTo(o.getTimestamp());
+    public int compareTo(Transaction t) {
+        int result =  this.getTimestamp().compareTo(t.getTimestamp());
+        if (result == 0) {
+            result = this.getPayer().compareTo(t.getPayer());
+        }
+        return result;
     }
 
     @Override

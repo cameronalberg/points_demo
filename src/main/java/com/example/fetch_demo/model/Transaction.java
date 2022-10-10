@@ -8,19 +8,19 @@ import java.util.Locale;
 
 public class Transaction implements Comparable<Transaction>{
     private String payer;
-    private int availablePoints;
+    private final int points;
     private Instant timestamp;
     private int transactionID;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private final int originalPoints;
+    private int availablePoints;
 
     public Transaction(String payer, int points, String timestamp)
             throws IllegalArgumentException {
         this.setPayer(payer);
         this.setAvailablePoints(points);
         this.setTimestamp(timestamp);
-        this.originalPoints = points;
+        this.points = points;
     }
 
     public String getPayer() {
@@ -47,8 +47,8 @@ public class Transaction implements Comparable<Transaction>{
         this.transactionID = id;
     }
 
-    public int getOriginalPoints() {
-        return this.originalPoints;
+    public int getPoints() {
+        return this.points;
     }
 
     public int getAvailablePoints() {

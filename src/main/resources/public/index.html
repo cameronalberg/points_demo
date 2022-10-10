@@ -72,6 +72,7 @@
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-1">Add Transactions</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-2">Spend Points</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-3">Check Payer Balances</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-3-4">Lookup Transaction</a></li>
 			    </ul>
 
 		    </nav><!--//docs-nav-->
@@ -94,7 +95,7 @@
 							payer/partner. In our system, each transaction record contains: payer (string), points (integer), timestamp (date).
 							For earning points it is easy to assign a payer, we know which actions earned the points. And thus which partner should be paying for the points.
 							When a user spends points, they don't know or care which payer the points come from. But, our accounting team does care how the points are spent.
-							There are two rules for determining what points to "spend" first:
+							There are two rules for determining what points to "spend" first:</p>
 								<ul>
 									<li>We want the oldest points to be spent first (oldest based on transaction timestamp, not the order they’re received)</li>
 									<li> We want no payer's points to go negative."</li>
@@ -106,7 +107,6 @@
 								<li>Spend points using the rules above and return a list of { "payer": &lt;string&gt;, "points": &lt;integer&gt; } for each call.</li>
 								<li> Return all payer point balances.</li>
 							</ul>
-							</p>
 						</blockquote>
 					</section><!--//section-->
 					
@@ -115,10 +115,11 @@
 						<p> This service provides the three requested API endpoints (add transaction, spend points, get balances) and operates with the conditions outlined in the requirements. In the absence of an exhaustive set of allowable conditions (and the stated request to use best judgement), several additional assumptions were made on the desired system requirements:</p>
 						<h5 class="mt-5">Assumptions:</h5>
 						<ul>
-							<li>XX</li>
-							<li>XX</li>
-							<li>XX</li>
+							<li>Transactions that contain the same name and timestamp are considered duplicates and are not re-added.</li>
+							<li>If a spend call requests to spend more points than are possible, the maximum amount of possible points will be spent.</li>
+							<li>A user of the service may want to retrieve the details of a previously added transaction, and so the response to the add transaction route should return a reference to the added transaction.</li>
 						</ul>
+						<p>One additional endpoint was added to be able to retrieve an added transaction.</p>
 					</section><!--//section-->
 
 			    </article>
@@ -165,7 +166,7 @@
 						</section><!--//docs-intro-->
 				    </header>
 				     <section class="docs-section" id="item-3-1">
-						<h2 class="section-heading">Add Transaction</h2>
+						<h2 class="section-heading">Add Transaction (/add)</h2>
 						 <hr>
 						 <div>
 							 <p style="display: inline">HTTP Method: </p>
@@ -208,7 +209,7 @@
 						 <div class="docs-code-block">
 							 <pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs"> https://{service_url}/add </code></pre>
 						 </div><!--//docs-code-block-->
-						 <h5>Request Body (required):</h5>
+						 <h5>Request Body Example (required):</h5>
 						 <div class="docs-code-block">
 							<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs">{
     <span class="hljs-attr">"payer"</span>: <span class="hljs-string">"DANNON"</span>,
@@ -220,7 +221,14 @@
 						 <div style="padding-top: 20px">
 							 <h5>Responses:</h5>
 							 <div style="width: fit-content" class="alert alert-success" role="alert">201 CREATED</div>
-							 <p>The transaction was successfully added to the system.</p>
+							 <p>The transaction was successfully added to the system (or already existed). A transactionID will be provided in the response body, which can be used to retrieve the transaction details via the <a href="#item-3-4">transaction lookup</a> endpoint. </p>
+							 <h4>Example Response</h4>
+							 <div class="docs-code-block">
+							<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs">{
+    <span class="hljs-attr">"transactionID"</span>: <span class="hljs-literal">3</span>
+}
+</code></pre>
+							 </div>
 							 <div style="width: fit-content" class="alert alert-danger" role="alert">400 BAD REQUEST</div>
 							 <p> An error was encountered while trying to add the transaction. If possible, error details will be provided in the response body.</p>
 						 </div>
@@ -234,25 +242,32 @@
 						</div>
 
 						<div style="padding-top: 20px">
-							<h5>Query Parameters:</h5>
+							<h5>Request Body Schema:  <code> application/json</code></h5>
 							<div class="table-responsive my-4">
 								<table class="table table-striped">
 									<thead>
 									<tr>
-										<th scope="col">key</th>
 										<th scope="col">type</th>
 										<th scope="col">description</th>
 									</tr>
 									</thead>
 									<tbody>
 									<tr>
-										<td>points</td>
 										<td>integer <code>&gt;= 0</code></td>
 										<td><p>Number of points to be spent.</p><p>Cannot be negative.</p><p>Example: <code>5000</code></p></td>
 									</tr>
 									</tbody>
 								</table>
 							</div>
+							<h4>Example Usage</h4>
+							<h5>Request URL:</h5>
+							<div class="docs-code-block">
+								<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs"> https://{service_url}/spend </code></pre>
+							</div><!--//docs-code-block-->
+							<h5>Request Body Example (required):</h5>
+							<div class="docs-code-block">
+							<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs">5000</code></pre>
+								</div><!--//docs-code-block-->
 						</div>
 
 						<div style="padding-top: 20px">
@@ -365,7 +380,96 @@
     <span class="hljs-attr">"MILLER COORS"</span>: <span class="hljs-literal">5300</span>
 }
 </code></pre>
+							</div>
 						</div>
+					</section><!--//section-->
+					<section class="docs-section" id="item-3-4">
+						<h2 class="section-heading">Lookup Transaction</h2>
+						<div>
+							<p style="display: inline">HTTP Method: </p>
+							<div style="display: inline" class="alert alert-warning" role="alert">GET</div>
+						</div>
+
+						<div style="padding-top: 20px; padding-bottom: 20px">
+							<h5>Query Parameters (required):</h5>
+							<div class="table-responsive my-4">
+								<table class="table table-striped">
+									<thead>
+									<tr>
+										<th scope="col">parameter</th>
+										<th scope="col">type</th>
+										<th scope="col">description</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>transactionID</td>
+										<td>integer <code>&gt;= 0</code></td>
+										<td>ID of previously added transaction. </td>
+
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<h4>Example Usage</h4>
+						<h5>Request URL:</h5>
+						<div class="docs-code-block">
+							<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs"> https://{service_url}/transactions/{transactionID} </code></pre>
+						</div><!--//docs-code-block-->
+
+						<div style="padding-top: 20px">
+							<h5>Responses:</h5>
+							<div style="width: fit-content" class="alert alert-success" role="alert">200 OK</div>
+							<div style="padding-top: 20px">
+								<h5>Response Body Schema:  <code> application/json</code></h5>
+								<div class="table-responsive my-4">
+									<table class="table table-striped">
+										<thead>
+										<tr>
+											<th scope="col">key</th>
+											<th scope="col">type</th>
+											<th scope="col">description</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td>payer</td>
+											<td>string</td>
+											<td><p>Name of Payer</p><p>Example: <code>"DANNON"</code></p></td>
+										</tr>
+										<tr>
+											<td>points</td>
+											<td>integer </td>
+											<td><p>Number of points gained by transaction.</p><p>Example: <code>100</code></p></td>
+										</tr>
+										<tr>
+											<td>timestamp</td>
+											<td>string</td>
+											<td><p>Transaction timestamp</p><p>Example: <code>2020-11-01T14:00:00Z</code></p></td>
+										</tr>
+										<tr>
+											<td>transactionID</td>
+											<td>integer</td>
+											<td><p>ID of transaction</p><p>Example: <code>2</code></p></td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<h4>Example Response</h4>
+							<div class="docs-code-block">
+							<pre class="shadow-lg rounded" style="width: fit-content"><code class="json hljs">{
+    <span class="hljs-attr">"payer"</span>: <span class="hljs-string">"DANNON"</span>,
+    <span class="hljs-attr">"points"</span>: <span class="hljs-literal">100</span>,
+    <span class="hljs-attr">"timestamp"</span>:<span class="hljs-attr">"2020-11-01T14:00:00Z"</span>,
+    <span class="hljs-attr">"transactionID"</span>: <span class="hljs-literal">2</span>
+}
+</code></pre>
+							</div><!--//docs-code-block-->
+						</div>
+						<div style="width: fit-content" class="alert alert-danger" role="alert">404 NOT FOUND</div>
+						<p>The specified transaction ID could not be found.</p>
 					</section><!--//section-->
 			    </article><!--//docs-article-->
 			    

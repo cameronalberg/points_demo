@@ -62,8 +62,8 @@ public class PointsController{
     public ResponseEntity<Object> findTransaction(@PathVariable int id) {
         Transaction t = manager.getTransaction(id);
         if (t == null) {
-            return new ResponseEntity<>("{\"error\": \"transactionID could not be found\"",
-                    HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("{\"error\": \"transactionID could not be found\"}",
+                    HttpStatus.NOT_FOUND);
         }
         else {
             return new ResponseEntity<>(t, HttpStatus.OK);

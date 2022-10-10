@@ -30,7 +30,7 @@ public class TransactionTests {
         t = new Transaction(payer, points, time);
         t_same = new Transaction(payer, points, time);
         t_older = new Transaction(payer, points, time_older);
-        t_older = new Transaction(payer, points, time_newer);
+        t_newer = new Transaction(payer, points, time_newer);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class TransactionTests {
     void checkOriginalPointsUnmodified() {
         Transaction t = new Transaction(payer, points, time);
         t.setAvailablePoints(points + 100);
-        Assertions.assertEquals(points, t.getOriginalPoints());
+        Assertions.assertEquals(points, t.getPoints());
     }
 
 }

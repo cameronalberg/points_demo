@@ -8,7 +8,7 @@ public class FetchDemoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FetchDemoApplication.class, args);
-        System.out.println("success");
+        System.out.println("initialization successful");
     }
 
 }

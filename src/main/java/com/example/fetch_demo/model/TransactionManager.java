@@ -42,7 +42,7 @@ public class TransactionManager {
     public Transaction getOldest() {
         Transaction oldest = this.transactions.first();
         return new Transaction(oldest.getPayer(), oldest.getAvailablePoints(),
-                oldest.getTimestamp());
+                oldest.getTimestamp().toString());
     }
 
     public Map<String, Integer> spendPoints(int spendablePoints) {

@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 
@@ -14,63 +12,51 @@ import java.util.Map;
 public class TransactionManagerTests {
     String payer;
     int points;
-    Instant time;
+    String time;
     TransactionManager manager;
-    Instant t1_time;
     Transaction t1;
-    Instant t2_time;
+    String t2_time;
     Transaction t2;
-    Instant t3_time;
+    String t3_time;
     Transaction t3;
-    Instant t4_time;
+    String t4_time;
     Transaction t4;
-    Instant t5_time;
+    String t5_time;
     Transaction t5;
 
     @BeforeEach
     void setup() {
         payer = "TEST1";
         points = 100;
-        time = Instant.now();
         manager = new TransactionManager();
-        t1_time = Instant.parse("2020-11-02T14:00:00Z");
-        t1 = new Transaction("DANNON", 1000, t1_time);
-        t2_time = Instant.parse("2020-10-31T11:00:00Z");
+        time = "2020-11-02T14:00:00Z";
+        t1 = new Transaction("DANNON", 1000, time);
+        t2_time = "2020-10-31T11:00:00Z";
         t2 = new Transaction("UNILEVER", 200, t2_time);
-        t3_time = Instant.parse("2020-10-31T15:00:00Z");
+        t3_time = "2020-10-31T15:00:00Z";
         t3 = new Transaction("DANNON", -200, t3_time);
-        t4_time = Instant.parse("2020-11-01T14:00:00Z");
+        t4_time = "2020-11-01T14:00:00Z";
         t4 = new Transaction("MILLER COORS", 10000, t4_time);
-        t5_time = Instant.parse("2020-10-31T10:00:00Z");
+        t5_time = "2020-10-31T10:00:00Z";
         t5 = new Transaction("DANNON", 300, t5_time);
     }
 
     @Test
     void printTransactions() {
-        Transaction transaction = new Transaction(payer, points, time);
-        Transaction transaction2 = new Transaction(payer, points, time);
-        Transaction transaction3 = new Transaction(payer, points,
-                time.plus(5, ChronoUnit.MINUTES));
-        manager.addTransaction(transaction);
-        manager.addTransaction(transaction2);
-        manager.addTransaction(transaction3);
+        Transaction t1Duplicate = new Transaction("DANNON", 1000, time);
+        manager.addTransaction(t1);
+        manager.addTransaction(t1Duplicate);
+        manager.addTransaction(t2);
         Assertions.assertEquals(2, manager.transactionCount());
     }
 
     @Test
     void orderIsCorrect() {
-        Transaction transaction = new Transaction("DEFAULT", points, time);
-        Transaction transaction_newer = new Transaction("NEWER", points,
-                time.plus(5, ChronoUnit.MINUTES));
-
-        manager.addTransaction(transaction);
-        manager.addTransaction(transaction_newer);
-        Assertions.assertEquals(transaction, manager.getOldest());
-        Transaction transaction_older = new Transaction("OLDER", points,
-                time.minus(5, ChronoUnit.MINUTES));
-
-        manager.addTransaction(transaction_older);
-        Assertions.assertEquals(transaction_older, manager.getOldest());
+        manager.addTransaction(t3);
+        manager.addTransaction(t4);
+        Assertions.assertEquals(t3, manager.getOldest());
+        manager.addTransaction(t2);
+        Assertions.assertEquals(t2, manager.getOldest());
     }
 
     @Test

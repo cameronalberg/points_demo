@@ -3,7 +3,6 @@ package com.example.fetch_demo.model;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
-import java.util.Map;
 
 public class Transaction implements Comparable<Transaction>{
     private String payer;
@@ -11,7 +10,7 @@ public class Transaction implements Comparable<Transaction>{
     private final int originalPoints;
     private Instant timestamp;
 
-    public Transaction(String payer, int points, Instant timestamp)
+    public Transaction(String payer, int points, String timestamp)
             throws IllegalArgumentException {
         this.setPayer(payer);
         this.setAvailablePoints(points);
@@ -52,13 +51,21 @@ public class Transaction implements Comparable<Transaction>{
         return this.timestamp;
     }
 
-    public void setTimestamp(Instant input) {
+    public void setTimestamp(String input) {
         if (input == null) {
             throw new IllegalArgumentException("timestamp cannot be null");
         }
-        else {
-            this.timestamp = input.truncatedTo(ChronoUnit.SECONDS);
+        if (input.length() != 20) {
+            throw new IllegalArgumentException("timestamp must be exactly 20 characters");
         }
+        else {
+            Instant converted = Instant.parse(input);
+            this.timestamp = converted.truncatedTo(ChronoUnit.SECONDS);
+        }
+    }
+
+    public static String convertTimeStamp(Instant timestamp) {
+        return timestamp.truncatedTo(ChronoUnit.SECONDS).toString();
     }
 
     @Override

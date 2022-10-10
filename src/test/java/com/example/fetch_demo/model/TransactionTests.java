@@ -12,22 +12,31 @@ import java.time.temporal.ChronoUnit;
 public class TransactionTests {
     String payer;
     int points;
-    Instant time;
+    String time;
+    String time_older;
+    String time_newer;
+    Transaction t;
+    Transaction t_same;
+    Transaction t_older;
 
     @BeforeEach
     void setup() {
         payer = "TEST1";
         points = 100;
-        time = Instant.now();
+        time = Transaction.convertTimeStamp(Instant.now());
+        time_older = Transaction.convertTimeStamp(Instant.now().minus(1, ChronoUnit.HOURS));
+        time_newer = Transaction.convertTimeStamp(Instant.now().plus(5, ChronoUnit.MINUTES));
+        t = new Transaction(payer, points, time);
+        t_same = new Transaction(payer, points, time);
+        t_older = new Transaction(payer, points, time_older);
     }
 
     @Test
     void canGetTransactionVariables() {
-        Transaction transaction = new Transaction(payer, points, time);
-        Assertions.assertEquals(payer, transaction.getPayer());
-        Assertions.assertEquals(points, transaction.getAvailablePoints());
-        Assertions.assertEquals(points, transaction.getAvailablePoints());
-        System.out.println(transaction.getTimestamp());
+        Assertions.assertEquals(payer, t.getPayer());
+        Assertions.assertEquals(points, t.getAvailablePoints());
+        Assertions.assertEquals(points, t.getAvailablePoints());
+        System.out.println(t.getTimestamp());
     }
 
     @Test
@@ -40,8 +49,7 @@ public class TransactionTests {
 
     @Test
     void payerMustContainAlphanumericChars() {
-        Transaction transaction = new Transaction(payer, points, time);
-        Assertions.assertEquals(payer, transaction.getPayer());
+        Assertions.assertEquals(payer, t.getPayer());
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Transaction("", points, time));
         Assertions.assertThrows(IllegalArgumentException.class,
@@ -59,8 +67,6 @@ public class TransactionTests {
 
     @Test
     void transactionsCompareCorrectly() {
-        Instant time_older = time.minus(1, ChronoUnit.HOURS);
-        Instant time_newer = time.plus(5, ChronoUnit.MINUTES);
         Transaction t = new Transaction(payer, points, time);
         Transaction t_same = new Transaction(payer, points, time);
         Transaction t_older = new Transaction(payer, points, time_older);
@@ -72,10 +78,6 @@ public class TransactionTests {
 
     @Test
     void checkEquality() {
-        Instant time_older = time.minus(1, ChronoUnit.HOURS);
-        Transaction t = new Transaction(payer, points, time);
-        Transaction t_same = new Transaction(payer, points, time);
-        Transaction t_older = new Transaction(payer, points, time_older);
         Assertions.assertEquals(t, t_same);
         Assertions.assertEquals(t, t);
         Assertions.assertNotEquals(t, t_older);
